@@ -36,7 +36,7 @@ contract likemToken  is likemTokenInterface,Ownable {
     //call transfer event
     emit Transfer(msg.sender, _to, _value);
     return true;
-
+  }
     //transferfrom function
     function transferFrom(_from,  _to,  _value)public virtual override returns (bool success){
       require(_value <= balanceOf[_from], "error");
@@ -55,22 +55,32 @@ contract likemToken  is likemTokenInterface,Ownable {
     }
 
 
-    //approval function 
-    function approve(address _spender,uint256 _value) public returns(bool success)
+    
+    //approval function
+    function approve(address _spender, uint256 _value)
+        public
+        returns (bool success)
     {
-      allowance[msg.sender][_spender] = _value;
-      
-      //call approval event 
-     event Approval(
-        address indexed _owner,
-        address indexed _spender,
-        uint256 _value)
-      return true;
+        allowance[msg.sender][_spender] = _value;
+        //call event
+        emit Approval(msg.sender, _spender, _value);
 
+        return true;
     }
 
 
-  }
+    //allowance function 
+    function allowance(address _owner, address _spender) 
+      public 
+      view  
+      virtual  
+      override 
+      returns(uint256)
+      {
+      return balances[account]
+      };
+ 
+ 
   
   
   

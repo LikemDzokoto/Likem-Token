@@ -33,9 +33,26 @@ contract likemToken  is likemTokenInterface,Ownable{
     balanceOf[msg.sender] -= _value;
     balanceOf[_to] +=_value;
 
+    //call transfer event
     emit Transfer(msg.sender, _to, _value);
     return true;
 
+    //transferfrom function
+    function transferFrom(address _from , address _to , _value) public virtual override returns (bool success){
+      require(_value <= balanceOf[_from], "error");
+      require(_value <=allowance[_from][msg.sender], "error");
+
+      allowance[_from][msg.sender] -= _value;
+      
+      //update balance of sender and recipient
+      balanceOf[_from] -=_value;
+      balanceOf[_to] += _value;
+
+      allowance[_from][msg.sender] -= _value;
+    
+    //call transfer event 
+      emit Transfer(_from, _to,_value);
+    }
 
   }
 

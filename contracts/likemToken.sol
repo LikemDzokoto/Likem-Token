@@ -17,7 +17,7 @@ contract likemToken  is likemTokenInterface,Ownable {
   uint256 public totalSupply;
 
   mapping (address => uint256) public balanceOf;
-  mapping(address => mapping(address => uint256)) public  allowance;
+  mapping(address => mapping(address => uint256)) public  allowances;
 
 
 
@@ -36,24 +36,8 @@ contract likemToken  is likemTokenInterface,Ownable {
     //call transfer event
     emit Transfer(msg.sender, _to, _value);
     return true;
-  }_
-    //transferfrom function
-  function transferFrom(address _from, address _to, uint256 _value) public virtual ovveride  returns (bool success){
-      require(_value <= balanceOf[_from], "error");
-      require(_value <=allowance[_from][msg.sender], "error");
-
-      allowance[_from][msg.sender] -= _value;
-      
-      //update balance of sender and recipient
-      balanceOf[_from] -=_value;
-      balanceOf[_to] += _value;
-
-     allowance[_from][msg.sender] -= _value;
-    
-    //call transfer event 
-      emit Transfer(_from, _to,_value);
   }
-  
+ 
 
 
     
@@ -70,6 +54,23 @@ contract likemToken  is likemTokenInterface,Ownable {
   }
 
 
+     //transferfrom function
+  function transferFrom(address _from, address _to, uint256 _value) public virtual override  returns (bool success){
+      require(_value <= balanceOf[_from], "error");
+      require(_value <=allowance[_from][msg.sender], "error");
+
+      allowance[_from][msg.sender] -= _value;
+      
+      //update balance of sender and recipient
+      balanceOf[_from] -=_value;
+      balanceOf[_to] += _value;
+
+     allowance[_from][msg.sender] -= _value;
+    
+    //call transfer event 
+      emit Transfer(_from, _to,_value);
+  }
+
     //allowance function 
   function allowance(address _owner, address _spender) 
       public 
@@ -78,16 +79,19 @@ contract likemToken  is likemTokenInterface,Ownable {
       override 
       returns(uint256)
     {
-      return balances[account];
+      return balanceOf[account];
   }
 
+
+    
+   
   function mint(address account, uint256 _value) public virtual onlyOwner() {
         require(account != address(0), "Mint to the 1st adddress");
 
-        _totalSupply += value;
-        balances[account] += value;
+        totalSupply += _value;
+        balanceOf[account] += _value;
 
-        emit Transfer(address(0), account, value);
+        emit Transfer(address(0), account, _value);
     }
  
  

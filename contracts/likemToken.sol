@@ -38,7 +38,7 @@ contract likemToken  is likemTokenInterface,Ownable{
     return true;
 
     //transferfrom function
-    function transferFrom(address _from , address _to , _value) public virtual override returns (bool success){
+    function transferFrom(_from,  _to,  _value)public virtual override returns (bool success){
       require(_value <= balanceOf[_from], "error");
       require(_value <=allowance[_from][msg.sender], "error");
 

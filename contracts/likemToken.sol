@@ -31,7 +31,11 @@ contract likemToken  is likemTokenInterface,Ownable{
   function transfer(address _to , uint256 _value) public virtual override  returns  (bool success){
     require(balanceOf[msg.sender] >= _value,"insufficient funds");
     balanceOf[msg.sender] -= _value;
-    balanceOf(_to) +=_value;
+    balanceOf[_to] +=_value;
+
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+
 
   }
 
@@ -46,7 +50,5 @@ contract likemToken  is likemTokenInterface,Ownable{
   
   
   
-  
-  constructor() public {
-  }
 }
+

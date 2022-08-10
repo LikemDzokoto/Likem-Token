@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.4;
-
+pragma solidity >=0.4.22 <0.9.0;
 /**
  * Token Interface
  */
@@ -17,12 +16,24 @@ interface  likemTokenInterface {
 
 
     function transferFrom(
-        address sender;
-        address recipient;
-        uint256 amount;
+        address spender,
+        address recipient,
+        uint256 amount
+    ) external view returns (bool);
 
 
-    )
+    event Transfer(address indexed from , address indexed to , uint256 value);
+
+
+    event Approval(
+        address indexed owner,
+        address indexed spender,
+        uint256 value
+    );
+
+
+
+
 
 
 

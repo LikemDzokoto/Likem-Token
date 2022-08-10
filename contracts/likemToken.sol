@@ -11,7 +11,7 @@ pragma solidity  >=0.4.22 <0.9.0;
 import "./likemTokenInterface.sol";
 import "./ownable.sol";
 
-contract likemToken  is likemTokenInterface,Ownable{
+contract likemToken  is likemTokenInterface,Ownable {
   string public name = "Likem Token";
   string public symbol = "$LTK";
   uint256 public totalSupply;
@@ -54,18 +54,24 @@ contract likemToken  is likemTokenInterface,Ownable{
       emit Transfer(_from, _to,_value);
     }
 
+
+    //approval function 
+    function approve(address _spender,uint256 _value) public returns(bool success)
+    {
+      allowance[msg.sender][_spender] = _value;
+      
+      //call approval event 
+     event Approval(
+        address indexed _owner,
+        address indexed _spender,
+        uint256 _value)
+      return true;
+
+    }
+
+
   }
-
-
-
-
-
-
-
-
   
   
   
-  
-}
-
+  }

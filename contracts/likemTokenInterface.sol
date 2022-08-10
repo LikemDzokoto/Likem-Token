@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.4.22 <0.9.0;
+pragma solidity  >=0.4.22 <0.9.0;
+
 /**
  * Token Interface
  */
@@ -8,17 +9,17 @@ interface  likemTokenInterface {
 
     function balanceOf(address account) external view returns (uint256);
 
-    function transfer(address recipient, uint256 amount) external returns(bool);
+    function transfer(address to, uint256 from) external returns(bool);
     
-    function allowance(address owner, address spender) external view returns(uint256);
+    function allowance(address owner, address from) external view returns(uint256);
     
-    function approve(address spender, uint256 amount) external returns(bool);
+    function approve(address from, uint256 value) external returns(bool);
 
 
     function transferFrom(
-        address spender,
-        address recipient,
-        uint256 amount
+        address from,
+        address to,
+        uint256 value
     ) external view returns (bool);
 
 
@@ -27,7 +28,7 @@ interface  likemTokenInterface {
 
     event Approval(
         address indexed owner,
-        address indexed spender,
+        address indexed to,
         uint256 value
     );
 
